@@ -16,8 +16,8 @@
 
 ### Built by 
 - Vaibhav Singh (vs2410)
-- Sindhu Bhoopalam Dinesh (vs2410)
-- Sourabh Bhattacharjee()
+- Sindhu Bhoopalam Dinesh (sb8019)
+- Sourabh Kumar Bhattacharjee (kb5275)
 
 
 ## Table of Contents
