@@ -86,10 +86,14 @@ class BasicBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, block=BasicBlock, num_blocks=[2,2,2,2],
-                 input_planes = 64, channels = [64, 64, 256, 256], num_classes=10):
+    def __init__(self, block=BasicBlock,
+                 num_blocks=[2, 2, 2, 2],
+                 input_channel = 64,
+                 channels = [64, 64, 256, 256],
+                 num_classes=10):
+
         super(ResNet, self).__init__()
-        self.in_planes = input_planes
+        self.in_planes = input_channel
 
         self.conv1 = nn.Conv2d(3, 64, kernel_size=3,
                                stride=1, padding=1, bias=False)
