@@ -50,7 +50,6 @@ def train(model, iterator, optimizer, criterion, device):
 
         epoch_loss += loss.item()
         epoch_acc += acc.item()
-        break
 
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
 
@@ -74,7 +73,6 @@ def evaluate(model, iterator, criterion, device):
 
             epoch_loss += loss.item()
             epoch_acc += acc.item()
-            break
 
 
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
