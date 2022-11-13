@@ -11,7 +11,7 @@ def calculate_accuracy(y_pred, y):
 
 
 def initialise_optimisers(config, model):
-    learning_rate = 10**(-config.train_config["learning_rate_exp"])
+    learning_rate = 10 ** (-config.train_config["learning_rate_exp"])
     optimiser = config.train_config["optimiser"]
 
     if optimiser == "Adam":
@@ -19,7 +19,9 @@ def initialise_optimisers(config, model):
     if optimiser == "AdamW":
         optimiser = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     if optimiser == "SGD":
-        optimiser = torch.optim.SGD(model.parameters(), lr=learning_rate)
+        optimiser = torch.optim.SGD(
+            model.parameters(), lr=learning_rate, momentum=0.9, weight_decay=0.0001
+        )
 
     return optimiser
 
@@ -48,6 +50,7 @@ def train(model, iterator, optimizer, criterion, device):
 
         epoch_loss += loss.item()
         epoch_acc += acc.item()
+        break
 
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
 
@@ -71,6 +74,8 @@ def evaluate(model, iterator, criterion, device):
 
             epoch_loss += loss.item()
             epoch_acc += acc.item()
+            break
+
 
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
 

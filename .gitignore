@@ -15,3 +15,5 @@ faces_data
 *.DS_Store
 *.ipynb_checkpoints
 *.pytest_cache
+cifar-10-python.tar.gz
+cifar-10-batches-py

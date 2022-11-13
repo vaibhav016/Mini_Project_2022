@@ -16,7 +16,7 @@ data_config:
   crop: True
   horizontal_flip: True
   validation_split: 0.9
-  batch_size: 64
+  batch_size: 2
   num_workers: 0
   resnet_blocks: [2, 2, 2, 2]
   block_channel:  [64, 64, 256, 256]
@@ -24,7 +24,7 @@ data_config:
   data_path: /Users/vaibhavsingh/Desktop/NYU/DL project/Mini_Project_2022/ # Change this according to your root.
 
 train_config:
-  optimiser: Adam
-  learning_rate_exp: 3
+  optimiser: SGD
+  learning_rate_exp: 1
   num_workers: 0
-  epochs: 30
+  epochs: 200

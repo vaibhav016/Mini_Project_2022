@@ -47,4 +47,15 @@ python3 train.py
 ```
 
 3.) Read the config file (config.yml). All the arguments are passed in this config file. 
+Following arguments are available for experimentation
+
+| Arguments  | Default Values |
+| ------------------------------| ------------- |
+| Optimizer                     | SGD  |
+| Learning Rate                 | Content Cell  |
+| Conv Layers in Resnet Block   | [2,2,2,2]  |
+| Input Channels                | 64  |
+| Batch Size                    | 256  |
+| Output Channels in each block |  [64, 128, 256, 256]  |
+    
     
