@@ -10,14 +10,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import torch
-import torch.nn as nn
-
-import torch.nn.functional as F
+import random
 
 import numpy as np
-
-import random
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 SEED = 1234
 
@@ -99,7 +97,7 @@ class ResNet(nn.Module):
         block=BasicBlock,
         num_blocks=[2, 2, 2, 2],
         input_channel=64,
-        channels=[64, 64, 256, 256],
+        channels=[64, 128, 256, 512],
         num_classes=10,
     ):
 

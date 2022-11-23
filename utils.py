@@ -1,6 +1,9 @@
 import torch
 import torch.optim
-import numpy as np
+from torch.optim.lr_scheduler import ReduceLROnPlateau, \
+    CosineAnnealingLR, LinearLR, ExponentialLR
+
+from config import Config
 
 
 def calculate_accuracy(y_pred, y):
@@ -8,7 +11,6 @@ def calculate_accuracy(y_pred, y):
     correct = top_pred.eq(y.view_as(top_pred)).sum()
     acc = correct.float() / y.shape[0]
     return acc
-
 
 def initialise_optimisers(config, model):
     learning_rate = 10 ** (-config.train_config["learning_rate_exp"])
@@ -25,8 +27,30 @@ def initialise_optimisers(config, model):
 
     return optimiser
 
+def initialise_schedular(config, optimizer):
+    scheduler = config.train_config["schedular"]
 
-def train(model, iterator, optimizer, criterion, device):
+    if scheduler == "ReduceOnPlateau":
+       scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.1)
+    elif scheduler == "Cosine":
+        scheduler = CosineAnnealingLR(optimizer, T_max = config.train_config["epochs"])
+    elif scheduler == "Linear":
+        scheduler = LinearLR(optimizer, start_factor=1, end_factor=1e-5, total_iters=config.train_config["epochs"])
+    elif scheduler == "Exponential":
+        scheduler = ExponentialLR(optimizer, gamma=0.9)
+
+    return scheduler
+
+def initialise_configs(args):
+    config = Config(args.config)
+    if args.data_path:
+        config.data_config["data_path"] = args.data_path
+    if args.saved_model:
+        config.data_config["saved_model"] = args.saved_model
+
+    return config
+
+def train_epoch(model, iterator, optimizer, criterion, device):
     epoch_loss = 0
     epoch_acc = 0
 
@@ -53,7 +77,6 @@ def train(model, iterator, optimizer, criterion, device):
 
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
 
-
 def evaluate(model, iterator, criterion, device):
     epoch_loss = 0
     epoch_acc = 0
@@ -76,7 +99,6 @@ def evaluate(model, iterator, criterion, device):
 
 
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
-
 
 def epoch_time(start_time, end_time):
     elapsed_time = end_time - start_time

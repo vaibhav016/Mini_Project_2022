@@ -9,7 +9,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import copy
 
 import torchvision
 import torchvision.transforms as transforms
@@ -19,15 +18,6 @@ import torch.utils.data as data
 mean = (0.4914, 0.4822, 0.4465)
 std = (0.2023, 0.1994, 0.2010)
 
-# Taken from prev assignment
-# train_transforms = transforms.Compose(
-#         [
-#             transforms.RandomRotation(5),
-#             transforms.RandomCrop((32,32), padding=4),
-#             transforms.RandomHorizontalFlip(p=0.5),
-#             transforms.ToTensor(),
-#             transforms.Normalize(mean=mean, std=std),
-#         ])
 
 test_transforms = transforms.Compose(
     [
@@ -49,6 +39,11 @@ def build_data_loader(config):
         train_transforms.append(transforms.RandomCrop((32, 32), padding=4))
     if config.data_config["horizontal_flip"]:
         train_transforms.append(transforms.RandomHorizontalFlip(p=0.5))
+    if config.data_config["affine"]:
+        train_transforms.append(transforms.RandomAffine(0, shear=10, scale=(0.8, 1.2)))
+    if config.data_config["color_jitter"]:
+        train_transforms.append(transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2))
+
     train_transforms.extend(
         [transforms.ToTensor(), transforms.Normalize(mean=mean, std=std)]
     )

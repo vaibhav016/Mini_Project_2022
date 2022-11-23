@@ -38,24 +38,38 @@ cd Mini_Project_2022
 1.) Installation on conda environment -  
 ```bash
 conda env create --name v_env --file=environments.yml
-python3 train.py
+python3 main.py -tr 1 -d "data_path" 
 ```
 2.) Installation via requirements.txt -
 ```bash
 pip install requirements.txt
-python3 train.py
+python3 main.py -tr 1 -d "data_path" 
 ```
 
 3.) Read the config file (config.yml). All the arguments are passed in this config file. 
 Following arguments are available for experimentation
 
-| Arguments  | Default Values |
+| Arguments  | Optimal Values |
 | ------------------------------| ------------- |
 | Optimizer                     | SGD  |
-| Learning Rate                 | Content Cell  |
+| Scheduler |  Reduce On Plateau  |
+| Augmentation | True  |
+| Learning Rate                 | 0.1  |
 | Conv Layers in Resnet Block   | [2,2,2,2]  |
 | Input Channels                | 64  |
 | Batch Size                    | 256  |
-| Output Channels in each block |  [64, 128, 256, 256]  |
-    
+| Output Channels in each block |  [64, 128, 256, 512]  |
+
+4.) To test the optimal model
+```
+python3 main.py -tr 0 -s "Mini_project/saved_models/model_512_SGD_ROP_256.pt"
+```
+
+5.) Performance Metrics on Testing Data  
+   
+| Loss  | Accuracy |
+| ------------------| ------------- |
+| 0.3004     | 93.34  |
+
+
     

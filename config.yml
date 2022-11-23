@@ -15,16 +15,23 @@ data_config:
   random_rotation: 5
   crop: True
   horizontal_flip: True
+  affine: True
+  color_jitter: True
   validation_split: 0.9
-  batch_size: 2
+  batch_size: 256
   num_workers: 0
-  resnet_blocks: [2, 2, 2, 2]
-  block_channel:  [64, 64, 256, 256]
+  resnet_blocks: [1, 1, 1, 1]
+  block_channel:  [64, 128, 256, 512]
   input_channel: 64
-  data_path: /Users/vaibhavsingh/Desktop/NYU/DL project/Mini_Project_2022/ # Change this according to your root.
+  data_path: /Users/vaibhavsingh/Desktop/NYU/DL project/Mini_Project_2022/saved_models # Change this according to your root.
+  saved_model: /Users/vaibhavsingh/Desktop/NYU/DL project/Mini_Project_2022/saved_models/model_512_SGD_ROP_256.pt
 
 train_config:
   optimiser: SGD
+  schedular: ReduceOnPlateau
   learning_rate_exp: 1
   num_workers: 0
+  tolerance: 20
   epochs: 200
+
+
