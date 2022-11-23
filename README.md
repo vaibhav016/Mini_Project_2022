@@ -69,7 +69,7 @@ python3 main.py -tr 0 -s "Mini_project/saved_models/model_512_SGD_ROP_256.pt"
    
 | Loss  | Accuracy |
 | ------------------| ------------- |
-| 0.3004     | 93.34  |
+| 0.3004     | 93.11  |
 
 
     
